@@ -37,6 +37,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.developer.musicapp.AccountDialog
+import com.developer.musicapp.AccountView
 import com.developer.musicapp.MainViewModel
 import com.developer.musicapp.Screen
 import com.developer.musicapp.screensInDrawer
@@ -73,7 +74,7 @@ fun MainView(){
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Home")
+                    Text(text = title.value)
                 },
                 navigationIcon = {
                     IconButton(onClick = {
@@ -151,11 +152,11 @@ fun Navigation(
 ){
     NavHost(
         navController = navController as NavHostController,
-        startDestination = Screen.DrawerScreen.AddAccount.route,
+        startDestination = Screen.DrawerScreen.Account.route,
         modifier = Modifier.padding(pd)
     ){
-        composable(Screen.DrawerScreen.AddAccount.route){
-
+        composable(Screen.DrawerScreen.Account.route){
+            AccountView()
         }
         composable(Screen.DrawerScreen.Subscription.route){
 

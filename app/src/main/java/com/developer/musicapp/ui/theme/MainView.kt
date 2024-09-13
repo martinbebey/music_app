@@ -36,6 +36,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.developer.musicapp.AccountDialog
 import com.developer.musicapp.MainViewModel
 import com.developer.musicapp.Screen
 import com.developer.musicapp.screensInDrawer
@@ -54,6 +55,10 @@ fun MainView(){
     val controller: NavController = rememberNavController()
     val navBackStackEntry by controller.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+
+    val dialogOpen = remember{
+        mutableStateOf(false)
+    }
 
     val currentScreen = remember{
         viewModel.currentScreen.value
@@ -95,7 +100,7 @@ fun MainView(){
                         }
 
                         if(drawerItem.dRoute == "add_account"){
-                            //open dialog
+                            dialogOpen.value = true
                         }
                         else{
                             controller.navigate(drawerItem.dRoute)
@@ -107,6 +112,7 @@ fun MainView(){
         }
     ) {
         Navigation(navController = controller, viewModel = viewModel, pd = it)
+        AccountDialog(dialogOpen = dialogOpen)
     }
 }
 

@@ -188,6 +188,17 @@ fun Navigation(
         startDestination = Screen.DrawerScreen.Account.route,
         modifier = Modifier.padding(pd)
     ){
+        composable(Screen.BottomScreen.Home.bRoute){
+            Home()
+        }
+        composable(Screen.BottomScreen.Browse.bRoute){
+            Browse()
+        }
+
+        composable(Screen.BottomScreen.Library.bRoute){
+            Library()
+        }
+
         composable(Screen.DrawerScreen.Account.route){
             AccountView()
         }

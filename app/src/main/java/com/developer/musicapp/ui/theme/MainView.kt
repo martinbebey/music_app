@@ -88,10 +88,10 @@ fun MainView(){
                     Log.d("Navigation", "Item: ${item.bTitle}, Current Route: $currentRoute, Is Selected: $isSelected")
                     val tint = if(isSelected)Color.White else Color.Black
                     BottomNavigationItem(selected = currentRoute == item.bRoute,
-                        onClick = { controller.navigate(item.bRoute)
+                        onClick = {
+                            controller.navigate(item.bRoute)
                             title.value = item.bTitle
                         }, icon = {
-
                             Icon(tint= tint,
                                 contentDescription = item.bTitle, painter= painterResource(id = item.icon))
                         },

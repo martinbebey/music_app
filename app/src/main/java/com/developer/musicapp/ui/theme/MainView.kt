@@ -1,13 +1,17 @@
 package com.developer.musicapp.ui.theme
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -41,6 +45,7 @@ import com.developer.musicapp.AccountView
 import com.developer.musicapp.MainViewModel
 import com.developer.musicapp.Screen
 import com.developer.musicapp.Subscription
+import com.developer.musicapp.screensInBottom
 import com.developer.musicapp.screensInDrawer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -70,8 +75,35 @@ fun MainView(){
 
         mutableStateOf(currentScreen.title)
     }
+
+    val bottomBar:  @Composable () -> Unit = {
+        if(currentScreen is Screen.DrawerScreen || currentScreen == Screen.BottomScreen.Home){
+            BottomNavigation(Modifier.wrapContentSize()) {
+                screensInBottom.forEach{
+                        item ->
+                    val isSelected = currentRoute == item.bRoute
+                    Log.d("Navigation", "Item: ${item.bTitle}, Current Route: $currentRoute, Is Selected: $isSelected")
+                    val tint = if(isSelected)Color.White else Color.Black
+                    BottomNavigationItem(selected = currentRoute == item.bRoute,
+                        onClick = { controller.navigate(item.bRoute)
+                            title.value = item.bTitle
+                        }, icon = {
+
+                            Icon(tint= tint,
+                                contentDescription = item.bTitle, painter= painterResource(id = item.icon))
+                        },
+                        label = { Text(text = item.bTitle, color = tint )}
+                        , selectedContentColor = Color.White,
+                        unselectedContentColor = Color.Black
+
+                    )
+                }
+            }
+        }
+    }
     
     Scaffold(
+        bottomBar = bottomBar,
         topBar = {
             TopAppBar(
                 title = {

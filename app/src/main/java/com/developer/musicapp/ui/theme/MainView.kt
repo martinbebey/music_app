@@ -42,6 +42,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.developer.musicapp.AccountDialog
 import com.developer.musicapp.AccountView
+import com.developer.musicapp.Browse
+import com.developer.musicapp.Home
+import com.developer.musicapp.Library
 import com.developer.musicapp.MainViewModel
 import com.developer.musicapp.Screen
 import com.developer.musicapp.Subscription

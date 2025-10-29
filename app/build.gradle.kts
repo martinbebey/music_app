@@ -40,6 +40,12 @@ android {
             versionNameSuffix = "-paid" // Added to the version
         }
 
+        create("unpaid"){
+            dimension = "licenseMode"
+            applicationIdSuffix = ".unpaid"
+            versionNameSuffix = "-unpaid"
+        }
+
         create("all"){
             dimension = "registrationMode"
         }
@@ -83,6 +89,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"

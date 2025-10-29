@@ -20,6 +20,23 @@ android {
         }
     }
 
+    // Define the type of product flavour dimensions
+    flavorDimensions += listOf("licenseMode", "registrationMode")
+
+    // Define the product flavours for each flavour dimension (such as paid and unpaid)
+    productFlavors{
+        create("paid"){
+            dimension = "licenseMode"
+            applicationIdSuffix = ".paid" // Added to the package name
+            versionNameSuffix = "-paid" // Added to the version
+        }
+
+        create("all"){
+            dimension = "registrationMode"
+        }
+    }
+
+    // Define build specific configs
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -27,6 +44,19 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        debug {  }
+
+        // Beta build
+        create("beta"){
+            initWith(getByName("debug")) // Init with debug settings
+            applicationIdSuffix = ".beta"
+            versionNameSuffix = "-beta"
+            isDebuggable = true
+            isMinifyEnabled = false
+            matchingFallbacks += listOf("debug") // Use debug resources if none are defined for staging
+            buildConfigField(type = "String", name = "API_URL", value = "\"https://staging.api.example.com\"")
         }
     }
     compileOptions {
@@ -57,6 +87,9 @@ dependencies {
     implementation("androidx.compose.ui:ui:$compose_version")
     implementation("androidx.compose.material:material:$compose_version")
     implementation("androidx.compose.ui:ui-tooling-preview:$compose_version")
+
+    // Define build/flavour specific dependencies here if needed
+    debugImplementation("debug-build-only-dependcy-name-and-version")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -1,6 +1,15 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidApplication) // First defined in the project gradle file
     alias(libs.plugins.jetbrainsKotlinAndroid)
+}
+
+apply<HelloWorldPlugin>() // Entry point for plugin
+
+// Could define your own custon plugin that does something once you apply it in gradle
+class HelloWorldPlugin: Plugin<Project>{
+    override fun apply(target: Project) {
+        println("Hello World!")
+    }
 }
 
 android {
@@ -8,7 +17,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.developer.musicapp"
+        applicationId = "com.developer.musicapp" // updating this will result in google play store treating the new release as a new app
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -89,7 +98,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:$compose_version")
 
     // Define build/flavour specific dependencies here if needed
-    debugImplementation("debug-build-only-dependcy-name-and-version")
+//    debugImplementation("debug-build-only-dependcy-name-and-version")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

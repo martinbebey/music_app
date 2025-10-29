@@ -97,6 +97,8 @@ dependencies {
     implementation("androidx.compose.material:material:$compose_version")
     implementation("androidx.compose.ui:ui-tooling-preview:$compose_version")
 
+    implementation(project(":streaming")) // To add a library from our own project
+
     // Define build/flavour specific dependencies here if needed
 //    debugImplementation("debug-build-only-dependcy-name-and-version")
 

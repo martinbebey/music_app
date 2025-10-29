@@ -48,14 +48,20 @@ android {
     // Define build specific configs
     buildTypes {
         release {
-            isMinifyEnabled = false
+            // Set to true for just release? so that gradle will use R8 tool to obfuscate code
+            // Obfuscate = transform names of all functions/classes/files into short unreadable names
+            // To prevent reverse engineering from an apk
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
 
-        debug {  }
+        debug {
+            // Stack traces are also obfuscated so we don't want that in a debug build
+            isMinifyEnabled = false
+        }
 
         // Beta build
         create("beta"){

@@ -12,14 +12,14 @@
 /captures
 .externalNativeBuild
 .cxx
-*.pro
-local.properties
+#*.pro
+#local.properties
 
 #build files
 /.idea
-gradle.properties
+#gradle.properties
 gradle/
 gradlew
 gradlew.bat
-settings.gradle.kts
+#settings.gradle.kts
 /lib

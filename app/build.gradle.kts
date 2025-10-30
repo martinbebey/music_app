@@ -27,6 +27,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        multiDexEnabled = false // Safe if total methods < 64K
     }
 
     // Define the type of product flavour dimensions
@@ -58,10 +60,15 @@ android {
             // Obfuscate = transform names of all functions/classes/files into short unreadable names
             // To prevent reverse engineering from an apk
             isMinifyEnabled = true
+            isDebuggable = false // Controls whether the APK can be debugged using Android Studio / adb.
+            isJniDebuggable = false // Controls whether native code (C/C++ via JNI) can be debugged.
+            isRenderscriptDebuggable = false // Controls whether RenderScript code (used for high-performance GPU/CPU operations) is debuggable.
+            isShrinkResources = true       // Remove unused resources (like drawables not referenced in code). Only works if minify is true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
 
         debug {
@@ -100,6 +107,17 @@ android {
         }
     }
 }
+
+//kotlin {
+//    jvmToolchain(11) // Optional: specifies the JDK for Kotlin compilation
+//}
+
+//tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+//    kotlinOptions {
+//        jvmTarget = "1.8" // keeps bytecode compatible
+//    }
+//    incremental = true // Enables incremental compilation
+//}
 
 dependencies {
 
